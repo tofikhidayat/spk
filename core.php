@@ -136,18 +136,7 @@ class CompareMajors {
 
      // get denied user
      private function getDeniedUser() {
-         $denyResult = [];
-         foreach(array_merge($this->denied1, $this->denied2) as $deny) {
-            
-             foreach(array_merge($this->accepted1, $this->accepted2) as $usr) {
-                if($deny->id != $usr->id) {
-                    $denyResult[] = $usr;
-                }
-                
-             }
-             
-         }
-        return array_unique($denyResult, SORT_REGULAR);
+        return array_unique(array_merge($this->denied1, $this->denied2), SORT_REGULAR);
      }
 
 
@@ -156,8 +145,7 @@ class CompareMajors {
         $this->orderByMajor();
         $this->filterByMajor();
         $this->reorderData();
-        // print_r($this->finalOrder);
-        return [
+        return (object)[
             'accepted' => $this->finalOrder,
             'denied' => $this->getDeniedUser()
             
