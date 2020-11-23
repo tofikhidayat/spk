@@ -8,7 +8,7 @@ class CompareMajors {
     private $students = [];
     // define rdered user and major;
     private $orderedStudent = [];
-     /// define maximum user in major
+     /// default define maximum user in major
     private $maximumPerMajor = 2;
     // ordered major
     private $orderedMajor = [];
@@ -74,20 +74,38 @@ class CompareMajors {
 
         }
     }
+
+
+     /**
+      * get limit of majors
+      */
+
+      private function getMajorLimit($name) {
+        $data = 0;
+        foreach($this->majors as $mjr) {
+            if($mjr->name == $name) {
+                $data = $mjr->quota;
+            }
+        }
+        return $data;
+      }
+
+
     /**
      * Select user to major
      */
+
 
      private function filterByMajor() {
         foreach ($this->orderedStudent as $key =>  $user) {
             $this->orderedMajor[$key] = [];
             $limit  = 0;
             forEach($user as $usr) {
-               if($usr->option_1 == $key && $limit < $this->maximumPerMajor) {
+               if($usr->option_1 == $key && $limit < $this->getMajorLimit($key)) {
                    $limit += 1;
                    $this->accepted1[] = $usr;
                    $this->orderedMajor[$key][] = $usr;
-               } elseif($usr->option_1 == $key && $limit >= $this->maximumPerMajor) {
+               } elseif($usr->option_1 == $key && $limit >= $this->getMajorLimit($key)) {
                   $this->denied1[] = $usr;
                }
             }
@@ -97,11 +115,11 @@ class CompareMajors {
            $limit  = sizeof([$key]) || 0;
            forEach($user as $usr) {
               if($this->findByAccepted($usr, 1)) {
-               if($usr->option_2 == $key && $limit < $this->maximumPerMajor) {
+               if($usr->option_2 == $key && $limit < $this->getMajorLimit($key)) {
                    $limit += 1;
                    $this->accepted2[] = $usr;
                    $this->orderedMajor[$key][] = $usr;
-               } elseif($usr->option_2 == $key && $limit >= $this->maximumPerMajor) {
+               } elseif($usr->option_2 == $key && $limit >= $this->getMajorLimit($key)) {
                   $this->denied2[] = $usr;
                }
               }

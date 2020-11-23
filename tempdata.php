@@ -10,19 +10,24 @@ function generateId($reset = false) {
 $majorsData = (object)[
     (object)[
         'order' => generateId(),
-        'name' => 'Multimedia'
+        'name' => 'Multimedia',
+        'quota' => 4
     ], (object)[
         'order'=> generateId(),
-        'name' => 'Pengawasan Mutu'
+        'name' => 'Pengawasan Mutu',
+        'quota' => 1
     ], (object)[
         'order'=> generateId(),
-        'name' => 'ATPH'
+        'name' => 'ATPH',
+        'quota' => 4
     ], (object)[
         'order'=> generateId(),
-        'name' => 'Perikanan'
+        'name' => 'Perikanan',
+        'quota' => 2
     ], (object)[
         'order'=> generateId(),
-        'name' => 'Agronomi'
+        'name' => 'Agronomi',
+        'quota' => 3
     ],
 ];
 
