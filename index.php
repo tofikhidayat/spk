@@ -5,8 +5,6 @@
    $order = new CompareMajors($majorsData, $studentsData);
    
    $result = $order->exec();
-   
-   // echo $result ? json_encode($result) : 'demo';
    ?>
 <!DOCTYPE html>
 <html lang="en">

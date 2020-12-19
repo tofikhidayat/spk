@@ -8,8 +8,7 @@ class CompareMajors {
     private $students = [];
     // define rdered user and major;
     private $orderedStudent = [];
-     /// default define maximum user in major
-    private $maximumPerMajor = 2;
+
     // ordered major
     private $orderedMajor = [];
 
@@ -24,7 +23,11 @@ class CompareMajors {
     private $finalOrder = [];
 
     public function __construct($majors, $students) {
-        $this->majors = $majors;
+        $majors =  (array)$majors;
+        usort($majors, function($a, $b) {
+            return $a->index > $b->index;
+        });
+        $this->majors = (object)$majors;
         $this->students = $students;
     }
 
@@ -90,6 +93,26 @@ class CompareMajors {
         return $data;
       }
 
+    // find user by major
+
+    private function fillterUserByMajor($name) {
+        foreach($this->orderedStudent as $key => $students) {
+            if($key == $name) {
+                return $students;
+            }
+        }
+    }
+
+    // count user on major data with same major name
+
+    private function countUserOnSelected($majorName) {
+        try {
+            return sizeof($this->orderedMajor[$majorName]);
+        } catch(Exception $e) {
+            return 0;
+        }
+    }
+
 
     /**
      * Select user to major
@@ -97,6 +120,7 @@ class CompareMajors {
 
 
      private function filterByMajor() {
+
         foreach ($this->orderedStudent as $key =>  $user) {
             $this->orderedMajor[$key] = [];
             $limit  = 0;
@@ -111,10 +135,14 @@ class CompareMajors {
             }
          }
        
+        //  print_r($this->orderedStudent);
          foreach ($this->orderedStudent as $key =>  $user) {
-           $limit  = sizeof([$key]) || 0;
+           $limit  = $this->countUserOnSelected($key);
            forEach($user as $usr) {
+            //   print_r($this->findByAccepted($usr, 1));
+            //   print_r($usr);
               if($this->findByAccepted($usr, 1)) {
+                
                if($usr->option_2 == $key && $limit < $this->getMajorLimit($key)) {
                    $limit += 1;
                    $this->accepted2[] = $usr;
@@ -126,6 +154,8 @@ class CompareMajors {
              
            }
         }
+
+        // print_r($this->accepted2);
      }
 
      // reorder data
@@ -152,9 +182,28 @@ class CompareMajors {
         $this->finalOrder = $orderData;
      }
 
+     private function checkAcceptedUser($id) {
+        $acceptedUsers = array_merge($this->accepted1, $this->accepted2);
+        foreach($acceptedUsers as $user) {
+            if($user->id == $id) {
+                return true;
+            }
+        }
+     }
+
      // get denied user
      private function getDeniedUser() {
-        return array_unique(array_merge($this->denied1, $this->denied2), SORT_REGULAR);
+        $deniedUsers  =  array_merge($this->denied1, $this->denied2);
+        // print_r($deniedUsers);
+        $finalDenied = [];
+        foreach($deniedUsers as $usr) {
+            // print_r($this->checkAcceptedUser($usr->id) ? '1 - ' : '0 - ');
+            // print_r($usr->id . ' ++ ');
+            if(!$this->checkAcceptedUser($usr->id)) {
+                $finalDenied[] = $usr;
+            }  
+        }
+        return array_unique($finalDenied, SORT_REGULAR);
      }
 
 
@@ -166,7 +215,6 @@ class CompareMajors {
         return (object)[
             'accepted' => $this->finalOrder,
             'denied' => $this->getDeniedUser()
-            
         ];
     }
 

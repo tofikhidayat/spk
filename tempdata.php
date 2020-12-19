@@ -11,23 +11,28 @@ $majorsData = (object)[
     (object)[
         'order' => generateId(),
         'name' => 'Multimedia',
-        'quota' => 4
+        'quota' => 5,
+        'index' => 1,
     ], (object)[
         'order'=> generateId(),
         'name' => 'Pengawasan Mutu',
-        'quota' => 1
+        'quota' => 12,
+        'index' => 2,
     ], (object)[
         'order'=> generateId(),
         'name' => 'ATPH',
-        'quota' => 4
+        'quota' => 20,
+        'index' => 3,
     ], (object)[
         'order'=> generateId(),
         'name' => 'Perikanan',
-        'quota' => 2
+        'quota' => 20,
+        'index' => 4,
     ], (object)[
         'order'=> generateId(),
         'name' => 'Agronomi',
-        'quota' => 3
+        'quota' => 20,
+        'index' => 5,
     ],
 ];
 
@@ -37,6 +42,30 @@ $studentsData = (object)[
     (object)[
         'id' => generateId(true),
         'name' => 'A',
+        'score' => 43,
+        'raport' => 75,
+        'academic' => 75,
+        'option_1' => 'Multimedia',
+        'option_2' => 'Pengawasan Mutu'
+    ],(object)[
+        'id' => generateId(true),
+        'name' => 'P1',
+        'score' => 43,
+        'raport' => 75,
+        'academic' => 75,
+        'option_1' => 'Multimedia',
+        'option_2' => 'Pengawasan Mutu'
+    ],(object)[
+        'id' => generateId(true),
+        'name' => 'P2',
+        'score' => 43,
+        'raport' => 75,
+        'academic' => 75,
+        'option_1' => 'Multimedia',
+        'option_2' => 'Pengawasan Mutu'
+    ], (object)[
+        'id' => generateId(true),
+        'name' => 'P3',
         'score' => 43,
         'raport' => 75,
         'academic' => 75,
@@ -128,7 +157,7 @@ $studentsData = (object)[
         'score' => 66,
         'raport' => 75,
         'academic' => 75,
-        'option_1' => 'Pengasawan Mutu',
+        'option_1' => 'Pengawasan Mutu',
         'option_2' => 'Perikanan'
     ], (object)[
         'id' => generateId(),
