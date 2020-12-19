@@ -78,7 +78,6 @@ class CompareMajors {
         }
     }
 
-
      /**
       * get limit of majors
       */
@@ -94,7 +93,6 @@ class CompareMajors {
       }
 
     // find user by major
-
     private function fillterUserByMajor($name) {
         foreach($this->orderedStudent as $key => $students) {
             if($key == $name) {
@@ -112,12 +110,9 @@ class CompareMajors {
             return 0;
         }
     }
-
-
     /**
      * Select user to major
      */
-
 
      private function filterByMajor() {
 
@@ -139,8 +134,6 @@ class CompareMajors {
          foreach ($this->orderedStudent as $key =>  $user) {
            $limit  = $this->countUserOnSelected($key);
            forEach($user as $usr) {
-            //   print_r($this->findByAccepted($usr, 1));
-            //   print_r($usr);
               if($this->findByAccepted($usr, 1)) {
                 
                if($usr->option_2 == $key && $limit < $this->getMajorLimit($key)) {
@@ -154,8 +147,6 @@ class CompareMajors {
              
            }
         }
-
-        // print_r($this->accepted2);
      }
 
      // reorder data
@@ -175,10 +166,7 @@ class CompareMajors {
                 }
             }
             $orderData[$major->name] = $majorData;
-            // print_r($majorData);
-
         }
-        // print_r($orderData);
         $this->finalOrder = $orderData;
      }
 
@@ -194,11 +182,8 @@ class CompareMajors {
      // get denied user
      private function getDeniedUser() {
         $deniedUsers  =  array_merge($this->denied1, $this->denied2);
-        // print_r($deniedUsers);
         $finalDenied = [];
         foreach($deniedUsers as $usr) {
-            // print_r($this->checkAcceptedUser($usr->id) ? '1 - ' : '0 - ');
-            // print_r($usr->id . ' ++ ');
             if(!$this->checkAcceptedUser($usr->id)) {
                 $finalDenied[] = $usr;
             }  
